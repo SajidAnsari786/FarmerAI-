@@ -1,0 +1,329 @@
+{
+  "crop_model": {
+    "type": "Random Forest Classifier",
+    "test_accuracy": 87.66,
+    "cv_mean_accuracy": 87.94,
+    "cv_std": 0.58,
+    "num_features": 16,
+    "feature_names": [
+      "N",
+      "P",
+      "K",
+      "temperature",
+      "humidity",
+      "ph",
+      "rainfall",
+      "season_enc",
+      "soil_enc",
+      "NPK_total",
+      "NP_ratio",
+      "NK_ratio",
+      "PK_ratio",
+      "temp_hum",
+      "rain_hum",
+      "ph_deviation"
+    ],
+    "num_crops": 48,
+    "crops": [
+      "apple",
+      "banana",
+      "barley",
+      "blackgram",
+      "cardamom",
+      "castor",
+      "chickpea",
+      "coconut",
+      "coffee",
+      "cotton",
+      "cowpea",
+      "finger_millet",
+      "garlic",
+      "ginger",
+      "grapes",
+      "groundnut",
+      "guava",
+      "jute",
+      "kidneybeans",
+      "lentil",
+      "linseed",
+      "maize",
+      "mango",
+      "mothbeans",
+      "mungbean",
+      "mustard",
+      "onion",
+      "orange",
+      "papaya",
+      "pearl_millet",
+      "peas",
+      "pepper",
+      "pigeonpeas",
+      "pomegranate",
+      "potato",
+      "rice",
+      "rubber",
+      "sesame",
+      "sorghum",
+      "soybean",
+      "sugarcane",
+      "sunflower",
+      "tea",
+      "tobacco",
+      "tomato",
+      "turmeric",
+      "watermelon",
+      "wheat"
+    ],
+    "per_crop": {
+      "apple": {
+        "precision": 83.3,
+        "recall": 75.0,
+        "f1": 78.9
+      },
+      "banana": {
+        "precision": 100.0,
+        "recall": 100.0,
+        "f1": 100.0
+      },
+      "barley": {
+        "precision": 87.0,
+        "recall": 100.0,
+        "f1": 93.0
+      },
+      "blackgram": {
+        "precision": 95.0,
+        "recall": 95.0,
+        "f1": 95.0
+      },
+      "cardamom": {
+        "precision": 93.8,
+        "recall": 93.8,
+        "f1": 93.8
+      },
+      "castor": {
+        "precision": 73.3,
+        "recall": 68.8,
+        "f1": 71.0
+      },
+      "chickpea": {
+        "precision": 93.8,
+        "recall": 100.0,
+        "f1": 96.8
+      },
+      "coconut": {
+        "precision": 89.5,
+        "recall": 85.0,
+        "f1": 87.2
+      },
+      "coffee": {
+        "precision": 95.0,
+        "recall": 95.0,
+        "f1": 95.0
+      },
+      "cotton": {
+        "precision": 70.3,
+        "recall": 86.7,
+        "f1": 77.6
+      },
+      "cowpea": {
+        "precision": 88.9,
+        "recall": 80.0,
+        "f1": 84.2
+      },
+      "finger_millet": {
+        "precision": 94.1,
+        "recall": 80.0,
+        "f1": 86.5
+      },
+      "garlic": {
+        "precision": 81.0,
+        "recall": 85.0,
+        "f1": 82.9
+      },
+      "ginger": {
+        "precision": 75.0,
+        "recall": 90.0,
+        "f1": 81.8
+      },
+      "grapes": {
+        "precision": 90.9,
+        "recall": 100.0,
+        "f1": 95.2
+      },
+      "groundnut": {
+        "precision": 93.3,
+        "recall": 93.3,
+        "f1": 93.3
+      },
+      "guava": {
+        "precision": 54.5,
+        "recall": 37.5,
+        "f1": 44.4
+      },
+      "jute": {
+        "precision": 90.5,
+        "recall": 95.0,
+        "f1": 92.7
+      },
+      "kidneybeans": {
+        "precision": 94.4,
+        "recall": 85.0,
+        "f1": 89.5
+      },
+      "lentil": {
+        "precision": 100.0,
+        "recall": 100.0,
+        "f1": 100.0
+      },
+      "linseed": {
+        "precision": 100.0,
+        "recall": 81.2,
+        "f1": 89.7
+      },
+      "maize": {
+        "precision": 80.0,
+        "recall": 66.7,
+        "f1": 72.7
+      },
+      "mango": {
+        "precision": 66.7,
+        "recall": 66.7,
+        "f1": 66.7
+      },
+      "mothbeans": {
+        "precision": 85.7,
+        "recall": 90.0,
+        "f1": 87.8
+      },
+      "mungbean": {
+        "precision": 79.2,
+        "recall": 79.2,
+        "f1": 79.2
+      },
+      "mustard": {
+        "precision": 93.3,
+        "recall": 93.3,
+        "f1": 93.3
+      },
+      "onion": {
+        "precision": 76.2,
+        "recall": 66.7,
+        "f1": 71.1
+      },
+      "orange": {
+        "precision": 95.2,
+        "recall": 100.0,
+        "f1": 97.6
+      },
+      "papaya": {
+        "precision": 100.0,
+        "recall": 100.0,
+        "f1": 100.0
+      },
+      "pearl_millet": {
+        "precision": 82.6,
+        "recall": 79.2,
+        "f1": 80.9
+      },
+      "peas": {
+        "precision": 100.0,
+        "recall": 90.0,
+        "f1": 94.7
+      },
+      "pepper": {
+        "precision": 100.0,
+        "recall": 75.0,
+        "f1": 85.7
+      },
+      "pigeonpeas": {
+        "precision": 95.8,
+        "recall": 95.8,
+        "f1": 95.8
+      },
+      "pomegranate": {
+        "precision": 72.2,
+        "recall": 81.2,
+        "f1": 76.5
+      },
+      "potato": {
+        "precision": 100.0,
+        "recall": 100.0,
+        "f1": 100.0
+      },
+      "rice": {
+        "precision": 95.1,
+        "recall": 97.5,
+        "f1": 96.3
+      },
+      "rubber": {
+        "precision": 100.0,
+        "recall": 93.8,
+        "f1": 96.8
+      },
+      "sesame": {
+        "precision": 72.0,
+        "recall": 90.0,
+        "f1": 80.0
+      },
+      "sorghum": {
+        "precision": 61.9,
+        "recall": 54.2,
+        "f1": 57.8
+      },
+      "soybean": {
+        "precision": 81.8,
+        "recall": 90.0,
+        "f1": 85.7
+      },
+      "sugarcane": {
+        "precision": 87.5,
+        "recall": 93.3,
+        "f1": 90.3
+      },
+      "sunflower": {
+        "precision": 85.0,
+        "recall": 85.0,
+        "f1": 85.0
+      },
+      "tea": {
+        "precision": 100.0,
+        "recall": 100.0,
+        "f1": 100.0
+      },
+      "tobacco": {
+        "precision": 73.3,
+        "recall": 68.8,
+        "f1": 71.0
+      },
+      "tomato": {
+        "precision": 100.0,
+        "recall": 100.0,
+        "f1": 100.0
+      },
+      "turmeric": {
+        "precision": 100.0,
+        "recall": 95.0,
+        "f1": 97.4
+      },
+      "watermelon": {
+        "precision": 86.4,
+        "recall": 95.0,
+        "f1": 90.5
+      },
+      "wheat": {
+        "precision": 88.4,
+        "recall": 95.0,
+        "f1": 91.6
+      }
+    }
+  },
+  "yield_model": {
+    "type": "XGBoost Regressor",
+    "r2_score": 97.8,
+    "mae_quintals": 11.55
+  },
+  "dataset": {
+    "total_rows": 5430,
+    "num_crops": 48
+  }
+}

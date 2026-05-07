@@ -6,7 +6,7 @@ function NutrientBar({ name, value, status }) {
   const pct = Math.min((value / max) * 100, 100);
 
   const colorMap = { optimal: '#10b981', low: '#f59e0b', high: '#ef4444', acidic: '#f59e0b', alkaline: '#f59e0b' };
-  const color = colorMap[status] || '#6b7280';
+  const color = colorMap[status] || '#002570ff';
 
   const [w, setW] = useState(0);
   useEffect(() => { setTimeout(() => setW(pct), 200); }, [pct]);

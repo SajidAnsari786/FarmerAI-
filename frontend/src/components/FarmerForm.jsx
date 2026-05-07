@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const API = 'http://localhost:8000';
 const SEASONS    = ['Kharif', 'Rabi', 'Zaid'];
 const SOIL_TYPES = ['Sandy', 'Loamy', 'Clayey'];
 
@@ -16,7 +15,7 @@ const FIELD_GROUPS = [
   },
   {
     title: '🌡️ Climate Conditions',
-    subtitle: 'Average values for your region — or use Weather Auto-Fill',
+    subtitle: 'Auto-filled from weather or enter manually',
     fields: [
       { name: 'temperature', label: 'Temperature', placeholder: '-10 – 60', tip: 'Average temperature during growing season', unit: '°C', min: -10, max: 60, step: 0.1 },
       { name: 'humidity', label: 'Humidity', placeholder: '0 – 100', tip: 'Relative humidity percentage', unit: '%', min: 0, max: 100, step: 0.1 },
@@ -55,25 +54,56 @@ function Tooltip({ text }) {
   );
 }
 
-export default function FarmerForm({ onSubmit, loading }) {
+export default function FarmerForm({ onSubmit, loading, apiBase = 'http://localhost:8000' }) {
   const [form, setForm] = useState({
     N: '', P: '', K: '', temperature: '', humidity: '', ph: '', rainfall: '',
-    season: 'Kharif', soil_type: 'Loamy', farm_area: '1', city: '',
+    season: 'Kharif', soil_type: 'Loamy', farm_area: '1', state: '', city: '',
   });
   const [weatherLoading, setWeatherLoading] = useState(false);
   const [weatherData, setWeatherData] = useState(null);
+  const [locations, setLocations] = useState({});
+  const [locLoading, setLocLoading] = useState(true);
+
+  // Fetch India locations on mount
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch(`${apiBase}/india-locations`);
+        if (res.ok) {
+          const data = await res.json();
+          setLocations(data.states || {});
+        }
+      } catch { /* fallback: manual entry */ }
+      finally { setLocLoading(false); }
+    })();
+  }, [apiBase]);
+
+  const stateNames = Object.keys(locations).sort();
+  const cityNames = form.state ? (locations[form.state] || []) : [];
 
   const set = (name, val) => setForm(prev => ({ ...prev, [name]: val }));
   const handleChange = e => set(e.target.name, e.target.value);
 
+  const handleStateChange = (e) => {
+    const st = e.target.value;
+    setForm(prev => ({ ...prev, state: st, city: '' }));
+    setWeatherData(null);
+  };
+
+  const handleCityChange = (e) => {
+    setForm(prev => ({ ...prev, city: e.target.value }));
+    setWeatherData(null);
+  };
+
   const fetchWeather = async () => {
-    if (!form.city.trim()) {
-      alert('Please enter a city name');
+    const query = form.city.trim();
+    if (!query) {
+      alert('Please select a city first');
       return;
     }
     setWeatherLoading(true);
     try {
-      const res = await fetch(`${API}/weather?city=${encodeURIComponent(form.city)}`);
+      const res = await fetch(`${apiBase}/weather?city=${encodeURIComponent(query)}`);
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.detail || 'Weather API error');
@@ -97,14 +127,14 @@ export default function FarmerForm({ onSubmit, loading }) {
     setForm({
       N: '80', P: '45', K: '40', temperature: '22', humidity: '82',
       ph: '6.8', rainfall: '230', season: 'Kharif', soil_type: 'Clayey',
-      farm_area: '2', city: '',
+      farm_area: '2', state: '', city: '',
     });
     setWeatherData(null);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { season, soil_type, farm_area, city, ...numeric } = form;
+    const { season, soil_type, farm_area, city, state, ...numeric } = form;
     for (const [k, v] of Object.entries(numeric)) {
       if (v === '' || isNaN(parseFloat(v))) {
         alert(`Please enter a valid value for "${k}"`);
@@ -134,25 +164,38 @@ export default function FarmerForm({ onSubmit, loading }) {
         </button>
       </div>
 
-      {/* Weather Auto-Fill */}
+      {/* Location: State + City + Weather Auto-Fill */}
       <div className="glass-flat" style={{ padding: '1.25rem', marginBottom: '1.75rem' }}>
-        <div style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: '0.6rem' }}>
-          🌤️ Weather Auto-Fill
+        <div style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: '0.75rem' }}>
+          📍 Location & Weather
           <span style={{ fontWeight: 400, fontSize: '0.78rem', color: 'var(--text-muted)', marginLeft: '0.5rem' }}>
-            (enter city to auto-fill temperature, humidity, rainfall)
+            Select your location to auto-fill weather data
           </span>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '0.75rem', alignItems: 'end' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem', alignItems: 'end' }}>
           <div>
-            <label className="lbl">City Name</label>
-            <input
-              type="text" name="city" value={form.city}
-              onChange={handleChange} className="inp"
-              placeholder="e.g. Mumbai, Delhi, Lucknow"
-            />
+            <label className="lbl">State / UT</label>
+            {locLoading ? (
+              <div className="inp" style={{ color: 'var(--text-faint)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span className="anim-spin" style={{ width: 14, height: 14, border: '2px solid rgba(16,185,129,0.3)', borderTopColor: '#10b981', borderRadius: '50%', display: 'inline-block' }} />
+                Loading...
+              </div>
+            ) : (
+              <select name="state" value={form.state} onChange={handleStateChange} className="inp">
+                <option value="">— Select State —</option>
+                {stateNames.map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            )}
+          </div>
+          <div>
+            <label className="lbl">City / District</label>
+            <select name="city" value={form.city} onChange={handleCityChange} className="inp" disabled={!form.state}>
+              <option value="">— Select City —</option>
+              {cityNames.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
           </div>
           <button
-            type="button" onClick={fetchWeather} disabled={weatherLoading}
+            type="button" onClick={fetchWeather} disabled={weatherLoading || !form.city}
             className="btn-secondary"
             style={{ height: 44, padding: '0 1.25rem', whiteSpace: 'nowrap' }}
           >
@@ -161,7 +204,7 @@ export default function FarmerForm({ onSubmit, loading }) {
                 width: 16, height: 16, border: '2px solid rgba(16,185,129,0.3)',
                 borderTopColor: '#10b981', borderRadius: '50%', display: 'inline-block',
               }} />
-            ) : '🌤️'} {weatherLoading ? 'Fetching...' : 'Auto-Fill'}
+            ) : '🌤️'} {weatherLoading ? 'Fetching...' : 'Auto-Fill Weather'}
           </button>
         </div>
         {weatherData && (
@@ -176,6 +219,7 @@ export default function FarmerForm({ onSubmit, loading }) {
             <span>💧 {weatherData.humidity}%</span>
             <span>🌬️ {weatherData.wind_speed} m/s</span>
             <span>☁️ {weatherData.description}</span>
+            <span style={{ fontSize: '0.7rem', color: 'var(--text-faint)' }}>via {weatherData.source}</span>
           </div>
         )}
       </div>

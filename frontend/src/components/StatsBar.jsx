@@ -1,11 +1,10 @@
 import React from 'react';
 
-const stats = [
-  { icon: '🌾', value: '22', label: 'Crop Types' },
-  { icon: '🧪', value: '7+', label: 'Soil Parameters' },
-  { icon: '📊', value: '95%', label: 'Accuracy' },
-  { icon: '⚡', value: '<1s', label: 'Prediction Time' },
-  { icon: '🌍', value: '3', label: 'Growing Seasons' },
+const STATS = [
+  { label: 'Crops Covered', value: '48', color: '#10b981' },
+  { label: 'Model Accuracy', value: '88%', color: '#3b82f6' },
+  { label: 'Yield R² Score', value: '97.8%', color: '#f59e0b' },
+  { label: 'Avg Response', value: '<1s', color: '#8b5cf6' },
 ];
 
 export default function StatsBar() {
@@ -16,19 +15,23 @@ export default function StatsBar() {
       gap: '0.75rem',
       marginTop: '0.5rem',
     }}>
-      {stats.map((s, i) => (
-        <div key={i} className="stat-card" style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>{s.icon}</div>
+      {STATS.map((s, i) => (
+        <div key={i} className="glass-flat" style={{
+          padding: '1rem 1.25rem',
+          textAlign: 'center',
+        }}>
           <div style={{
-            fontFamily: 'Outfit,sans-serif',
-            fontWeight: 800,
-            fontSize: '1.4rem',
-            color: '#10b981',
-            lineHeight: 1
+            fontSize: '1.5rem', fontWeight: 800,
+            fontFamily: "'Outfit', sans-serif",
+            color: s.color,
+            letterSpacing: '-0.02em',
+            lineHeight: 1.1,
           }}>{s.value}</div>
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-faint)', marginTop: '0.2rem', letterSpacing: '0.04em' }}>
-            {s.label}
-          </div>
+          <div style={{
+            fontSize: '0.68rem', color: 'var(--text-faint)',
+            textTransform: 'uppercase', letterSpacing: '0.08em',
+            fontWeight: 600, marginTop: '0.3rem',
+          }}>{s.label}</div>
         </div>
       ))}
     </div>

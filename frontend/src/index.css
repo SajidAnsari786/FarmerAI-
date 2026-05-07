@@ -49,10 +49,11 @@ body {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(16,185,129,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(5,150,105,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 100% 70% at 50% 50%, rgba(4,10,6,1) 0%, var(--bg-deepest) 100%);
+  background-image: url('/app-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  filter: brightness(0.18) saturate(0.6);
   pointer-events: none;
 }
 
@@ -60,12 +61,8 @@ body {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image:
-    linear-gradient(rgba(16,185,129,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16,185,129,0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
+  background: linear-gradient(180deg, rgba(4,10,6,0.5) 0%, rgba(4,10,6,0.75) 50%, rgba(4,10,6,0.9) 100%);
   pointer-events: none;
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
 }
 
 #root { position: relative; z-index: 1; }
@@ -366,6 +363,17 @@ select.inp option {
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {
   .heading-xl { font-size: 2rem; }
+  .nav-links-desktop { display: none !important; }
+  .nav-mobile-toggle { display: flex !important; }
+}
+@media (min-width: 769px) {
+  .nav-mobile-menu { display: none !important; }
+}
+
+/* ─── Pulse dot animation ────────────────────────────────── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
 }
 
 /* ─── Nutrient bar ────────────────────────────────────────── */
