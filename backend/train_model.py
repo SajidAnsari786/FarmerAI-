@@ -169,7 +169,7 @@ def train():
     os.makedirs(MODELS_DIR, exist_ok=True)
 
     print("=" * 65)
-    print("  🌾 FARMER AI - Enhanced Model Training v5.0")
+    print("  FARMER AI - Enhanced Model Training v5.0")
     print("=" * 65)
 
     # ── Step 1: Check & generate dataset ──────────────────────────────────────
@@ -246,7 +246,7 @@ def train():
     report = classification_report(y_te, y_pred, target_names=le.classes_, output_dict=True)
     report_text = classification_report(y_te, y_pred, target_names=le.classes_)
 
-    print(f"\n     ✅ RANDOM FOREST ACCURACY: {acc:.4f} ({acc*100:.2f}%)")
+    print(f"\n     RANDOM FOREST ACCURACY: {acc:.4f} ({acc*100:.2f}%)")
     print(report_text)
 
     # Cross-validation
@@ -312,7 +312,7 @@ def train():
     y_pred_yield = xgb_reg.predict(Xv)
     r2  = r2_score(yv, y_pred_yield)
     mae = mean_absolute_error(yv, y_pred_yield)
-    print(f"     ✅ R² Score: {r2:.4f}")
+    print(f"     R2 Score: {r2:.4f}")
     print(f"     MAE: {mae:.2f} quintals/ha")
 
     yield_model = {
@@ -372,10 +372,10 @@ def train():
     print("     [SAVED] accuracy_report.json")
 
     print("\n" + "=" * 65)
-    print(f"  ✅ ALL MODELS TRAINED SUCCESSFULLY!")
-    print(f"  📊 Crop Accuracy: {acc*100:.2f}%  |  Yield R²: {r2*100:.1f}%")
-    print(f"  📂 Models saved in: {MODELS_DIR}")
-    print(f"  🌾 Supported crops: {list(le.classes_)}")
+    print(f"  ALL MODELS TRAINED SUCCESSFULLY!")
+    print(f"  Crop Accuracy: {acc*100:.2f}%  |  Yield R2: {r2*100:.1f}%")
+    print(f"  Models saved in: {MODELS_DIR}")
+    print(f"  Supported crops: {list(le.classes_)}")
     print("=" * 65)
 
 
