@@ -1,80 +1,84 @@
 # 🌾 Farmer AI — Professional Smart Crop Intelligence Platform
 
-Farmer AI is a high-performance, professional-grade agricultural intelligence platform designed to empower Indian farmers with data-driven decision-making. It combines advanced machine learning models, real-time data integration, and an intelligent NLP-based advisory system within a premium, SaaS-style user interface.
+![Farmer AI Banner](docs/images/banner.png)
 
-![Farmer AI UI](https://img.shields.io/badge/UI-Premium_Glassmorphism-emerald)
-![ML Accuracy](https://img.shields.io/badge/ML_Accuracy-88%25-blue)
-![Yield R2](https://img.shields.io/badge/Yield_R2-97.8%25-gold)
+Farmer AI is a high-performance, professional-grade agricultural intelligence platform designed to empower farmers with data-driven decision-making. It combines advanced machine learning models, real-time data integration, and an intelligent AI advisory system within a premium, SaaS-style user interface.
 
-## 🚀 Key Features
+---
+
+## 🚀 Live Demo
+**Check out the live website here:** [https://SajidAnsari786.github.io/FarmerAI-/](https://SajidAnsari786.github.io/FarmerAI-/)  
+*(Note: The live demo runs in **Demo Mode**. For full AI functionality, please run the local backend.)*
+
+---
+
+## ✨ Key Features
 
 ### 1. Smart Crop Recommendation
-- **Predictive Engine:** Powered by a Random Forest Classifier trained on **5,430+ rows** of high-fidelity agronomic data.
-- **Coverage:** Supports **48 diverse Indian crops** including cereals, pulses, oilseeds, fruits, vegetables, spices, and plantation crops.
-- **Accuracy:** Achieves **~88% accuracy** with 5-fold cross-validation.
+*   **Predictive Engine:** Powered by a Random Forest Classifier trained on **5,430+ rows** of high-fidelity agronomic data.
+*   **Coverage:** Supports **48 diverse Indian crops** including cereals, pulses, oilseeds, fruits, vegetables, spices, and plantation crops.
+*   **Accuracy:** Achieves **~88% accuracy** with 5-fold cross-validation.
 
 ### 2. Precision Yield Estimation
-- **XGBoost Pipeline:** High-precision yield forecasting with an **R² score of 97.8%**.
-- **Actionable Insights:** Helps farmers estimate production before sowing based on NPK, pH, and climate data.
+*   **Yield Forecasting:** Integrated XGBoost Regressor for precise yield prediction based on soil conditions and farm area.
+*   **Revenue Projection:** Automatically calculates estimated revenue based on current market prices and predicted yield.
 
-### 3. Intelligent AI Advisor (NLP)
-- **Context-Aware Assistance:** Built-in knowledge base (`advisor_kb.py`) covering 12+ critical agricultural topics.
-- **Real-time Advice:** Detailed guidance on irrigation, fertilizers, pest control, organic farming, and harvest schedules.
-- **Crop-Specific Logic:** Deep technical data for major Indian staples like rice, wheat, potato, tomato, and onion.
+### 3. Intelligent AI Advisor
+*   **Knowledge Base:** Context-aware AI advisor trained on professional agronomic practices.
+*   **Expert Guidance:** Get instant answers on pest control, fertilizer application, and soil health management.
 
-### 4. Weather & Market Intelligence
-- **Live Weather Dashboard:** Real-time local weather data with AI-generated farming advisories (heat stress, frost alerts, rainfall management).
-- **Market Trends:** Live tracking of crop prices and MSP comparison with trend analysis.
+### 4. Real-Time Market & Weather
+*   **Market Prices:** Live MSP data for 2024-25 and mandi price trends across India.
+*   **Weather Dashboard:** Hyper-local weather forecasting to plan irrigation and harvesting.
 
-### 5. Professional SaaS UI
-- **Refined Aesthetics:** Clean, dark-mode interface with emerald/gold accents and high-end glassmorphism.
-- **Cinematic Backgrounds:** Contextual, high-resolution agricultural photography backgrounds for every module (Weather, Market, Advisor, Predict).
-- **Responsive Design:** Optimized for field use across devices.
+---
 
 ## 🛠️ Technology Stack
 
-- **Backend:** 
-  - [FastAPI](https://fastapi.tiangolo.com/) (High-performance Python web framework)
-  - [Scikit-learn](https://scikit-learn.org/) & [XGBoost](https://xgboost.readthedocs.io/) (Machine Learning)
-  - [Joblib](https://joblib.readthedocs.io/) (Model Serialization)
-- **Frontend:** 
-  - [React](https://reactjs.org/) with [Vite](https://vitejs.dev/)
-  - [Vanilla CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) (Custom Premium Design System)
-  - [Lucide React](https://lucide.dev/) (Icons)
+| Component | Technology |
+| :--- | :--- |
+| **Frontend** | React, Lucide Icons, Vanilla CSS (Premium Glassmorphism) |
+| **Backend** | FastAPI (Python), Uvicorn |
+| **Machine Learning** | Scikit-Learn (Random Forest), XGBoost |
+| **Data Processing** | Pandas, NumPy, Joblib |
+| **Deployment** | GitHub Pages (Frontend), Cloud Run / Local (Backend) |
+
+---
 
 ## 📦 Installation & Setup
 
-### Backend
-1. Navigate to the `backend` directory.
-2. Create a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Start the server:
-   ```bash
-   uvicorn main:app --reload
-   ```
+### 1. Clone the Repository
+```bash
+git clone https://github.com/SajidAnsari786/FarmerAI-.git
+cd FarmerAI-
+```
 
-### Frontend
-1. Navigate to the `frontend` directory.
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
+### 2. Setup Backend
+```bash
+cd backend
+pip install -r requirements.txt
+python train_model.py  # To generate the ML models
+python main.py         # To start the API server
+```
 
-## 📊 Dataset Information
-The models are trained on a comprehensive dataset tailored for Indian agro-climatic conditions, featuring:
-- **Features:** Nitrogen, Phosphorus, Potassium, Temperature, Humidity, pH, Rainfall.
-- **Targets:** Crop Type (Classification), Yield (Regression).
+### 3. Setup Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
 ---
-*Developed with a focus on empowering the next generation of digital-first farmers.*
+
+## 📊 Model Performance
+*   **Crop Model Accuracy:** 87.66%
+*   **Yield Model R² Score:** 97.8%
+*   **Supported Crops:** 48 Varieties
+
+---
+
+## 🤝 Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+This project is licensed under the MIT License.

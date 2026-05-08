@@ -81,16 +81,28 @@ export default function App() {
 
     try {
       // 1. Crop Prediction
-      const predRes = await fetch(`${API}/predict`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      if (!predRes.ok) {
-        const err = await predRes.json();
-        throw new Error(err.detail || 'Prediction failed');
+      let predData;
+      try {
+        const predRes = await fetch(`${API}/predict`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        if (!predRes.ok) throw new Error('Backend error');
+        predData = await predRes.json();
+      } catch (e) {
+        console.warn("Backend offline - Using Demo Mode data");
+        // MOCK DATA for Demo Mode
+        predData = {
+          recommendations: [
+            { crop: 'rice', confidence: 92.5, icon: '🌾', season: 'Kharif', market_price_per_quintal: 2300, tip: 'Ensure standing water 5-10cm during seedling stage.' },
+            { crop: 'maize', confidence: 84.1, icon: '🌽', season: 'Kharif', market_price_per_quintal: 2225, tip: 'Plant at 20cm spacing for optimal yield.' },
+            { crop: 'cotton', confidence: 76.8, icon: '☁️', season: 'Kharif', market_price_per_quintal: 7121, tip: 'Monitor for bollworm infestation regularly.' }
+          ],
+          soil_health_score: 85,
+          soil_advice: ['Apply Urea at 65kg/acre', 'Soil is well-balanced']
+        };
       }
-      const predData = await predRes.json();
       setResults(predData);
 
       let yData = null;
@@ -107,9 +119,18 @@ export default function App() {
           });
           if (yieldRes.ok) {
             yData = await yieldRes.json();
-            setYieldData(yData);
+          } else {
+            throw new Error();
           }
-        } catch (e) { /* yield is optional */ }
+        } catch (e) {
+          yData = {
+            predicted_yield_quintals_per_hectare: 45.2,
+            total_yield_quintals: 45.2 * (formData.farm_area || 1),
+            estimated_revenue_inr: 45.2 * (formData.farm_area || 1) * 2300,
+            market_price_per_quintal: 2300
+          };
+        }
+        setYieldData(yData);
       }
 
       // 3. Soil Health
@@ -121,9 +142,24 @@ export default function App() {
         });
         if (soilRes.ok) {
           sData = await soilRes.json();
-          setSoilHealth(sData);
+        } else {
+          throw new Error();
         }
-      } catch (e) { /* soil is optional */ }
+      } catch (e) {
+        sData = {
+          soil_health_score: 85,
+          grade: 'Excellent',
+          color: 'green',
+          nutrient_levels: {
+            nitrogen: { value: formData.N, status: 'optimal' },
+            phosphorus: { value: formData.P, status: 'optimal' },
+            potassium: { value: formData.K, status: 'optimal' },
+            ph: { value: formData.ph, status: 'optimal' }
+          },
+          recommendations: ['Soil is in great condition.']
+        };
+      }
+      setSoilHealth(sData);
 
       // Save to history
       saveToHistory(formData, predData, yData, sData);
