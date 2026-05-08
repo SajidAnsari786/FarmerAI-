@@ -11,7 +11,10 @@ import HistoryPanel from './components/HistoryPanel';
 import MarketPrices from './components/MarketPrices';
 import AIAdvisor from './components/AIAdvisor';
 
-const API = 'http://localhost:8000';
+const API = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:8000'
+  : 'https://farmer-ai-backend.onrender.com'; // Change this once your Render backend is live
+
 
 export default function App() {
   const [loading, setLoading]           = useState(false);

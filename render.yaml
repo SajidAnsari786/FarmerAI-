@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: farmer-ai-backend
+    env: docker
+    dockerContext: backend
+    dockerfilePath: backend/Dockerfile
+    plan: free
+    region: singapore
+    envVars:
+      - key: PORT
+        value: 8000
