@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.git/
+.gitignore
+README.md
+data/
+test_predictions.py
+train_model.py
+generate_dataset.py
